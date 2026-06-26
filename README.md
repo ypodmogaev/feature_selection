@@ -35,7 +35,6 @@ Two datasets are used:
 | `c` | Commodity indexes | Bloomberg Commodity Index, Brent Oil |
 | `$` | Currencies | FX rates |
 | `b` | Freight indexes | Baltic Capesize Index |
-| `v` | Volume characteristics | Production volumes |
 | `fp` | Futures positions | COT data (Prod_Merc, Swap, etc.) |
 | `sd` | Supply & demand | Fundamental indicators |
 
