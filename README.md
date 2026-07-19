@@ -25,7 +25,7 @@ Two datasets are used:
 
 | Dataset | Description |
 | :--- | :--- |
-| **Target** | `pr` — CME Wheat Futures (ZW) weekly price |
+| **Target** | CME Wheat Futures (ZW) weekly price |
 | **Factors** | Market factors grouped by type |
 
 ### Factor groups
