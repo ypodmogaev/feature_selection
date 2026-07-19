@@ -30,7 +30,7 @@ Two datasets are used:
 
 ### Factor groups
 
-| Prefix | Group | Examples |
+| Prefix | Group |
 | :--- | :--- |
 | `e` | Stock indexes |
 | `c` | Commodity indexes |
