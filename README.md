@@ -153,7 +153,7 @@ Based on the comprehensive evaluation across rolling windows, the top configurat
 - **Simple filter methods (`las_corr_p`, `las_corr_S`)** with "All Years" training depth provide exceptional feature stability (validated by advanced stability metrics in the full dataset) while maintaining highly competitive accuracy, making them ideal for robust, production-ready pipelines.
 - **Sequential Feature Selection (`las_SFS`)** achieves the highest composition stability across rolling windows, proving that greedy selection excels at feature consistency, albeit with a slight trade-off in raw MAPE.
 - The multi-criteria **Composite Score** successfully balances trade-offs: methods with extreme speed or extreme stability but poor accuracy naturally fall in the overall ranking.
-
+- **Illustrative Economic Significance Test** (weekly trend-following simulation on `las_XGB`) confirms the statistical edge carries real economic weight (Sharpe ~1.9, robust to outlier-week and regime exclusion), though absolute figures reflect idealized execution and should not be read as expected returns.
 ---
 
 ## 📁 Project Structure
@@ -213,7 +213,7 @@ All charts follow a branded, publication-ready style:
 - [x] Add advanced feature stability and diversity metrics (Jaccard, Shannon Entropy, Composite Scoring)
 - [ ] Switch to relative paths (currently Windows-absolute)
 - [ ] Add `.gitignore` for `pkls/`, `results/`, `__pycache__`, `.ipynb_checkpoints`
-- [ ] Prepare publication text for Medium / QuantConnect / Habr based on top-performing configurations
+- [ ] Prepare publication text for Towards Data Science/ Medium / QuantConnect / Habr based on top-performing configurations
 - [ ] Add expanding-window mode (currently rolling only)
 - [ ] Package top configurations (`las_XGB`, `las_corr_p`) into a modular, production-ready inference script
 
