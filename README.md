@@ -2,7 +2,7 @@
 
 **Weekly forecasting of CME Wheat Futures (ZW) using market factors and systematic feature selection.**
 
-> This project exhaustively compares 20+ feature selection methods combined with Lasso regression to identify the most robust and accurate configuration for forecasting CME wheat futures.
+> This project exhaustively compares 15+ feature selection methods combined with Lasso regression to identify the most robust and accurate configuration for forecasting CME wheat futures.
 
 ---
 
@@ -25,7 +25,7 @@ Two datasets are used:
 
 | Dataset | Description |
 | :--- | :--- |
-| **Target** | CME Wheat Futures (ZW) weekly price |
+| **Target** | CME Wheat Futures (ZW) weekly Typical Price `(High + Low + Close) / 3` |
 | **Factors** | Market factors grouped by type |
 
 ### Factor groups
@@ -75,20 +75,19 @@ Additional synergy features: Volatility × Volume interaction, Momentum spreads,
 - **Horizon:** next-week log return → inverse-transformed to price levels
 
 ### Pipeline per window
-
-```text
+text
 Slice dataset by period
-        ↓
+↓
 Feature selection method (with specific parameter/top-N features)
-        ↓
+↓
 StandardScaler (fit on train only — no leakage)
-        ↓
+↓
 LassoCV (TimeSeriesSplit, 150 alphas, eps=1e-15)
-        ↓
+↓
 Inverse-transform log-returns → price levels
-        ↓
+↓
 Compute multi-dimensional metrics & store results
-```
+
 
 ---
 
@@ -127,7 +126,7 @@ For each rolling window and each method, the pipeline computes a **Composite Sco
    - **R² Stability Gap** — Overfitting indicator (Train vs Test R² difference)
    - **Composition Stability (Jaccard)** — Similarity of selected feature sets between consecutive rolling windows
 3. **Diversity**:
-   - **Shannon Entropy** — Frequency distribution of feature selection
+   - **Shannon Entropy** — Frequency distribution of feature selection across factor groups
    - **Avg Internal Correlation** — Redundancy metric of the selected subset
 4. **Efficiency**:
    - **Execution Time** — Speed comparison between methods (`Time_perf`)
@@ -136,24 +135,25 @@ For each rolling window and each method, the pipeline computes a **Composite Sco
 
 ## 🏆 Key Results & Insights
 
-Based on the comprehensive evaluation across rolling windows, the top configurations by predictive performance are:
+Based on the comprehensive evaluation across rolling windows, the top configurations by **Composite Score** are:
 
-| Rank | Method | Training Depth | Key Parameters | Test MAPE | Directional Accuracy |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| 🥇 1 | `las_XGB` | All Years | Top 50 features | **2.44%** | **64.2%** |
-| 🥈 2 | `las_corr_p` | All Years | Top 2-7 features | 2.49% | 60.1% |
-| 🥉 3 | `las_corr_S` | All Years | Top 2-7 features | 2.49% | 60.1% |
-| 4 | `las_XGB` | All Years | Top 30 features | 2.45% | 62.4% |
-| 5 | `las_SFS` | All Years | Top 10-50 features | 2.50% | 59.2% |
+| Rank | Method | Config | Test MAPE | Dir. Accuracy | Jaccard | Composite Score |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 🥇 1 | `las_corr_S` (Spearman) | All Years, Top 2-7 | **2.49%** | **59.5%** | **0.46** | **0.791** |
+| 🥈 2 | `las_corr_p` (Pearson) | All Years, Top 2-7 | 2.50% | 59.0% | 0.50 | 0.788 |
+| 🥉 3 | `las_SHAP` | All Years, Top 75 | 2.50% | 59.2% | 0.29 | 0.777 |
+| 4 | `las_corr_p` (Pearson) | All Years, Top 15 | 2.53% | 59.7% | 0.57 | 0.764 |
+| 5 | `las_XGB` | All Years, Top 50 | 2.49% | 59.7% | 0.22 | 0.763 |
 
-> *(Note: This table highlights the top predictive metrics for brevity. The full evaluation is based on a **Composite Score** balancing сriteria, including R² Stability Gap, Feature Diversity (Shannon Entropy), Internal Correlation, and Execution Time. Full results are available in `results/evaluation_summary.xlsx`).*
+> *(Note: The 64.2% Directional Accuracy for XGBoost mentioned in literature is exclusively from an alternative sensitivity test using the OCHL target, not the main HLC target. Full results are available in `results/evaluation_summary.xlsx`).*
 
 **Key Takeaways:**
-- **Tree-based importance (`las_XGB`)** delivers the best raw predictive performance (lowest MAPE, highest Directional Accuracy).
-- **Simple filter methods (`las_corr_p`, `las_corr_S`)** with "All Years" training depth provide exceptional feature stability (validated by advanced stability metrics in the full dataset) while maintaining highly competitive accuracy, making them ideal for robust, production-ready pipelines.
-- **Sequential Feature Selection (`las_SFS`)** achieves the highest composition stability across rolling windows, proving that greedy selection excels at feature consistency, albeit with a slight trade-off in raw MAPE.
-- The multi-criteria **Composite Score** successfully balances trade-offs: methods with extreme speed or extreme stability but poor accuracy naturally fall in the overall ranking.
-- **Illustrative Economic Significance Test** (weekly trend-following simulation on `las_XGB`) confirms the statistical edge carries real economic weight (Sharpe ~1.9, robust to outlier-week and regime exclusion), though absolute figures reflect idealized execution and should not be read as expected returns.
+- **The "Stability Premium"**: While tree-based importance (`las_XGB`) matches Spearman's raw MAPE (~2.49%), its feature selection is highly unstable (Jaccard drops to 0.22). Spearman delivers >2x higher stability (Jaccard 0.46), making it the superior choice for production.
+- **Simple filter methods (`las_corr_p`, `las_corr_S`)** with "All Years" training depth provide the best practical balance of accuracy, stability, and factor diversity (Entropy), making them ideal for robust, production-ready pipelines.
+- **Artificial Stability Warning**: Methods with rigid structures (like RFECV) show artificially high Jaccard scores but near-zero Entropy. They "get stuck" on the same features, failing to adapt to market regime shifts, unlike adaptive filters like Spearman.
+- The multi-criteria **Composite Score** successfully balances trade-offs: methods with extreme speed or extreme stability but poor accuracy/diversity naturally fall in the overall ranking.
+- **Illustrative Economic Significance Test** (weekly trend-following simulation on the top `las_corr_S` configuration) confirms the statistical edge carries real economic weight (simulated CAGR 41.4%, Sharpe 1.50, Win Rate 59.45%, robust to outlier-week and regime exclusion), though absolute figures reflect idealized execution and should not be read as expected returns.
+
 ---
 
 ## 📁 Project Structure
@@ -166,6 +166,7 @@ feature_selection/
 │   └── factors_full.pkl          # Factor metadata
 ├── results/
 │   ├── las/                      # Baseline Lasso results
+│   ├── las_corr_S/               # Lasso + Spearman results (Top Performer)
 │   ├── las_corr_p/               # Lasso + Pearson results
 │   ├── las_XGB/                  # Lasso + XGBoost results
 │   ├── ...                       # Folders for all other evaluated methods
@@ -173,13 +174,7 @@ feature_selection/
 │   ├── evaluation_summary.xlsx   # Final ranked composite scores table
 │   └── plots/                    # Publication-ready charts
 └── README.md
-```
 
----
-
-## 🚀 Installation & Usage
-
-```bash
 # Clone the repository
 git clone https://github.com/ypodmogaev/feature_selection.git
 cd feature_selection
@@ -189,11 +184,6 @@ pip install numpy pandas scikit-learn matplotlib seaborn openpyxl tqdm xgboost s
 
 # Run the notebook
 jupyter notebook feature_selection.ipynb
-```
-
-> **Note:** The datasets `model_df_full.pkl` and `factors_full.pkl` must be placed in the `pkls/` folder before running.
-
----
 
 ## 🎨 Visualization Style
 
@@ -227,6 +217,3 @@ All charts follow a branded, publication-ready style:
 
 ---
 
-## ⚠️ Disclaimer
-
-> This project is for **informational and research purposes only**. Nothing herein constitutes investment advice. Past performance is not indicative of future results.
