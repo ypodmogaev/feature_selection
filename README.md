@@ -163,7 +163,7 @@ feature_selection/
 ├── feature_selection.ipynb       # Main pipeline notebook
 ├── pkls/
 │   ├── model_df_full.pkl         # Raw dataset (price + factors)
-│   └── factors_full.pkl          # Factor metadata
+│   └── factors_base.pkl          # Factor metadata
 ├── results/
 │   ├── las/                      # Baseline Lasso results
 │   ├── las_corr_S/               # Lasso + Spearman results (Top Performer)
@@ -194,18 +194,6 @@ All charts follow a branded, publication-ready style:
 - **Layout:** Margins (left=0.11, right=0.91, top=0.79, bottom=0.09), no top/right spines, LGRAY grid lines, DGRAY tick labels
 - **Custom elements:** `fob_header`, `fob_footer`, `draw_box` with FancyBboxPatch, gridspec for complex layouts, legend without frame
 - **Current output:** *Directional Accuracy vs Forecast Error (MAPE)* scatter plot comparing methods and training depths, plus feature stability heatmaps.
-
----
-
-## 🗺 Roadmap
-
-- [x] Implement and evaluate comprehensive feature selection methods (Spearman, MI, VIF, Boruta, RFE, SFS, SHAP, XGB, Stability Selection, PCA variants, PCMCI, etc.)
-- [x] Add advanced feature stability and diversity metrics (Jaccard, Shannon Entropy, Composite Scoring)
-- [ ] Switch to relative paths (currently Windows-absolute)
-- [ ] Add `.gitignore` for `pkls/`, `results/`, `__pycache__`, `.ipynb_checkpoints`
-- [ ] Prepare publication text for Towards Data Science/ Medium / QuantConnect / Habr based on top-performing configurations
-- [ ] Add expanding-window mode (currently rolling only)
-- [ ] Package top configurations (`las_XGB`, `las_corr_p`) into a modular, production-ready inference script
 
 ---
 
