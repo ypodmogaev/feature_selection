@@ -1,7 +1,7 @@
 # 🌾 Feature Selection for CME Wheat Futures Forecasting
 
 📄 **Published Research:** This repository contains the code and data for the paper *"Comparison of Feature Selection Methods for Wheat Price Forecasting"*.  
-> **Read the full SSRN Preprint here:** [https://papers.ssrn.com/sol3/papers.cfm?abstract_id=737991
+ **Read the full SSRN Preprint here:** [https://papers.ssrn.com/sol3/papers.cfm?abstrac](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7379918)]
 > 
 **Weekly forecasting of CME Wheat Futures (ZW) using market factors and systematic feature selection.**
 
@@ -203,8 +203,6 @@ All charts follow a branded, publication-ready style:
 ## 👤 Author
 
 **Yuriy Podmogaev**
-*Machine Learning & Analytics Specialist*
-[GitHub](https://github.com/ypodmogaev/feature_selection)
-
+*Machine Learning & Analytics Specialist | Independent Quantitative Researcher*  
+📄 [SSRN Preprint](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7379918) | 💻 [GitHub](https://github.com/ypodmogaev/feature_selection) | 💼 [LinkedIn](https://www.linkedin.com/in/yuriy-podmogaev/)
 ---
-
