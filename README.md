@@ -173,7 +173,7 @@ feature_selection/
 │   ├── evaluation_summary.xlsx   # Final ranked composite scores table
 │   └── plots/                    # Publication-ready charts
 └── README.md
-
+```
 # Clone the repository
 git clone https://github.com/ypodmogaev/feature_selection.git
 cd feature_selection
@@ -198,7 +198,7 @@ All charts follow a branded, publication-ready style:
 
 ## 👤 Author
 
-**Yuriy Podmogaev**
+**Yuriy Podmogaev**  
 *Machine Learning & Analytics Specialist | Independent Quantitative Researcher*  
-📄 [SSRN Preprint](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7379918) | 💻 [GitHub](https://github.com/ypodmogaev/feature_selection) | 💼 [LinkedIn](https://www.linkedin.com/in/yuriy-podmogaev/)
+📄 [Published Paper (Zenodo)](https://doi.org/10.5281/zenodo.22228431) | 💻 [GitHub](https://github.com/ypodmogaev/feature_selection) | 💼 [LinkedIn](https://www.linkedin.com/in/yuriy-podmogaev/)
 ---
