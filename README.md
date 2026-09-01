@@ -1,11 +1,7 @@
 # 🌾 Feature Selection for CME Wheat Futures Forecasting
 
-📄 **Published Research:** This repository contains the code and data for the paper *"Comparison of Feature Selection Methods for Wheat Price Forecasting"*.  
- **Read the full SSRN Preprint here:** [https://papers.ssrn.com/sol3/papers.cfm?abstrac](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7379918)]
-> 
-**Weekly forecasting of CME Wheat Futures (ZW) using market factors and systematic feature selection.**
-
-> This project exhaustively compares 15+ feature selection methods combined with Lasso regression to identify the most robust and accurate configuration for forecasting CME wheat futures.
+> 📄 **Published Research:** This repository contains the code and data for the paper *"Comparison of Feature Selection Methods for Wheat Price Forecasting"*.  
+> **Read the full paper with DOI here:** [https://doi.org/10.5281/zenodo.22228431](https://doi.org/10.5281/zenodo.22228431)
 
 ---
 
