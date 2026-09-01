@@ -174,14 +174,14 @@ feature_selection/
 │   └── plots/                    # Publication-ready charts
 └── README.md
 ```
-# Clone the repository
+## Clone the repository
 git clone https://github.com/ypodmogaev/feature_selection.git
 cd feature_selection
 
-# Install dependencies
+## Install dependencies
 pip install numpy pandas scikit-learn matplotlib seaborn openpyxl tqdm xgboost shap
 
-# Run the notebook
+## Run the notebook
 jupyter notebook feature_selection.ipynb
 
 ## 🎨 Visualization Style
